@@ -13,6 +13,8 @@ export class AnimalService {
     private _animalUrl = 'https://gold-river-reptile.firebaseio.com/animals.json';
     private _animalsSvc = 'http://api.herptracker.com/odata/Animals';
     private _animalsJson = '../data/animals.json';
+    private _animalStatusQuery = '?$expand=Status';
+    private _animalsAvailableQuery = '';
 
     constructor(private _http: Http) { }
 
