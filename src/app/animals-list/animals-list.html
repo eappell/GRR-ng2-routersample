@@ -1,0 +1,12 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{title}}</h2>
+
+      <div *ngFor="let animal of animals">
+        {{animal.Name ? animal.Name : animal.TrackingId}}
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{title}}</h2>
+
+      <div *ngFor="let project of projects">
+        <strong>{{project.Dam.TrackingId}} x {{project.Sire.TrackingId}}</strong> {{project.DateStart | date: 'yyyy'}}
+      </div>
+    </div>
+  </div>
+</div>
