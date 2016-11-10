@@ -1,22 +1,23 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AnimalDetailInfoComponent } from './animal-detail-info/animal-detail-info.component';
-import { ProjectDetailInfoComponent } from './project-detail-info/project-detail-info.component';
-import { AnimalsListComponent } from './animals-list/animals-list.component';
-import { AvailableListComponent } from './available-list/available-list.component';
-import { ProjectsListComponent } from './projects-list/projects-list.component';
+// import { LoginComponent } from './login/login.component';
+// import { RegisterComponent } from './register/register.component';
+// import { AuthGuard } from './_auth/auth.guard';
 import { CustomerPortalComponent } from './customer-portal/customer-portal.component';
+import { AfdemoComponent } from './afdemo/afdemo.component';
 import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'animal', component: AnimalDetailInfoComponent },
-  { path: 'animals', component: AnimalsListComponent },
-  { path: 'project', component: ProjectDetailInfoComponent },
-  { path: 'projects', component: ProjectsListComponent },
-  { path: 'available', component: AvailableListComponent },
-  { path: 'customer', component: CustomerPortalComponent }
+  { path: 'customer', component: CustomerPortalComponent },
+  // { path: 'customer', component: CustomerPortalComponent, canActivate: [AuthGuard] },
+  // { path: 'login', component: LoginComponent },
+  // { path: 'register', component: RegisterComponent },
+  { path: 'af', component: AfdemoComponent },
+
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
 ];
 
 export const appRoutingProviders: any[] = [];

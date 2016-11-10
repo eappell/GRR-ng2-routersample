@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12" *ngIf="animal">
+      <div class="row">
+        <div class="col-md-7">
+          <h2>{{animal.Name ? animal.Name : animal.TrackingId}}</h2>
+          <p>
+            DOB: {{animal.DOB | date: 'shortDate'}}<br/>
+            {{animal.Description}}
+          </p>
+          <p>
+            <button class="btn btn-primary" (click)="onBack()">
+              <i class="glyphicon glyphicon-chevron-left"></i>
+              Back
+            </button>
+          </p>
+        </div>
+        <div *ngIf="animal.Photos && animal.Photos.length > 1" class="col-md-5">
+          <!-- If we need pagination -->
+          <div class="swiper-pagination"></div>
+
+          <ks-swiper-container [options]="swiper1SwipeOptions">
+            <ks-swiper-slide *ngFor="let photo of animal.Photos">
+              <img src="/assets/images/{{animal.DOB | date: 'yy'}}/{{animal.TrackingId.substr(-2)}}/{{photo.Filename}}" alt="{{photo.Caption}}" *ngIf="animal.ProductOfProjectId" class="img-fluid rounded" />
+              <img src="/assets/images/{{animal.DOB | date: 'yy'}}/{{animal.TrackingId}}/{{photo.Filename}}" alt="{{animal.Name ? animal.Name : animal.TrackingId}}" *ngIf="!animal.ProductOfProjectId" class="img-fluid rounded" />
+            </ks-swiper-slide>
+          </ks-swiper-container>
+
+          <!-- If we need navigation buttons -->
+          <!--<div class="swiper-button-prev" (click)="movePrev()"></div>
+          <div class="swiper-button-next" (click)="moveNext()"></div>-->
+        </div>
+        <div *ngIf="!animal.Photos || animal.Photos.length <= 1" class="col-md-5">
+          <figure class="figure">
+            <img src="/assets/images/{{animal.DOB | date: 'yy'}}/{{animal.TrackingId.substr(-2)}}/001.jpg" alt="{{animal.Name ? animal.Name : animal.TrackingId}}" *ngIf="animal.ProductOfProjectId" class="img-fluid rounded" />
+            <img src="/assets/images/{{animal.DOB | date: 'yy'}}/{{animal.TrackingId}}/001.jpg" alt="{{animal.Name ? animal.Name : animal.TrackingId}}" *ngIf="!animal.ProductOfProjectId" class="img-fluid rounded" />
+            <figcaption class="figure-caption">{{animal.Name ? animal.Name : animal.TrackingId}}</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

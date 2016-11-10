@@ -3,9 +3,6 @@
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "files": [
-      "node_modules/angularfire2/firebase3.d.ts"
-    ],
     "lib": ["es6", "dom"],
     "mapRoot": "./",
     "module": "es6",

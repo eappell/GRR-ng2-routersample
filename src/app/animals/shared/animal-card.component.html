@@ -1,0 +1,33 @@
+<img src="/assets/images/{{animal.DOB | date: 'yy'}}/{{animal.TrackingId.substr(-2)}}/001.jpg" alt="{{animal.TrackingId}}"
+    (click)="openLightbox(content)"
+    *ngIf="animal.ProductOfProjectId" class="card-img-top img-fluid" />
+<img src="/assets/images/{{animal.DOB | date: 'yy'}}/{{animal.TrackingId}}/001.jpg" alt="{{animal.TrackingId}}"
+    (click)="openLightbox(content)"
+    *ngIf="!animal.ProductOfProjectId" class="card-img-top img-fluid" />
+<div class="card-block">
+  <h5 class="card-title">
+    <a [routerLink]="['/animal', animal.Id]">
+      {{animal.Name ? animal.Name : animal.TrackingId}}
+    </a>
+  </h5>
+  <p class="card-text">
+      {{animal.Description | truncate : [100] }}
+  </p>
+  <p class="card-text"><small class="text-muted">Hatched: {{animal.DOB | date: 'M/d/yyyy'}}</small></p>
+  <!--<button class="btn btn-primary" (click)="gotoDetail(animal)">Details</button>-->
+</div>
+
+<template ngbModalContainer #content let-c="close">
+  <div class="modal-header">
+    <h4 class="modal-title">
+      {{animal.Name ? animal.Name : animal.Id}}
+    </h4>
+  </div>
+  <div class="modal-body">
+    <img src="/assets/images/{{animal.DOB | date: 'yy'}}/{{animal.TrackingId.substr(-2)}}/001.jpg" alt="{{animal.TrckingId}}" *ngIf="animal.ProductOfProjectId" class="img-fluid rounded" />
+    <img src="/assets/images/{{animal.DOB | date: 'yy'}}/{{animal.TrackingId}}/001.jpg" alt="{{animal.TrackingId}}" *ngIf="!animal.ProductOfProjectId" class="img-fluid rounded" />
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+  </div>
+</template>

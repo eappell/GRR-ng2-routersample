@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{title}}</h2>
+
+      <masonry [options]="masonryOptions" [useImagesLoaded]="true">
+        <masonry-brick *ngFor="let project of projects" (click)="gotoDetail(project)" class="brick card card-success card-inverse">
+          <app-project-card [project]="project"></app-project-card>
+        </masonry-brick>
+      </masonry>
+
+    </div>
+  </div>
+</div>

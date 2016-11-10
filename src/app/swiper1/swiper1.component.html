@@ -1,7 +1,14 @@
 <div class="myslides">
   <ks-swiper-container [options]="swiper1SwipeOptions">
     <ks-swiper-slide *ngFor="let s of slides">
-      <img src="{{s.image}}" alt="{{s.caption}}">
+      <img src="{{s.image}}" alt="{{s.caption}}" class="img-fluid">
     </ks-swiper-slide>
   </ks-swiper-container>
+
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  <div class="swiper-button-prev" (click)="movePrev()"></div>
+  <div class="swiper-button-next" (click)="moveNext()"></div>
 </div>

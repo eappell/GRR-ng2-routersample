@@ -1,24 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { Location, LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
-import { HomeSliderComponent } from './home-slider/home-slider.component';
-
 import { routing, appRoutingProviders } from './app.routing';
-import { AnimalDetailInfoComponent } from './animal-detail-info/animal-detail-info.component';
-import { ProjectDetailInfoComponent } from './project-detail-info/project-detail-info.component';
-import { AnimalsListComponent } from './animals-list/animals-list.component';
-import { ProjectsListComponent } from './projects-list/projects-list.component';
-import { AvailableListComponent } from './available-list/available-list.component';
+
+// THIRD PARTY MODULES
+import { MasonryOptions } from 'angular2-masonry';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFireModule } from 'angularfire2';
+
+// INTERNAL MODULES
+import { SharedModule } from './shared/shared.module';
+import { AnimalsModule } from './animals/animals.module';
+import { ProjectsModule } from './projects/projects.module';
+import { AuthModule } from './_auth/auth.module';
+
+// COMPONENTS
+import { HomeSliderComponent } from './home-slider/home-slider.component';
 import { CustomerPortalComponent } from './customer-portal/customer-portal.component';
 import { HomeComponent } from './home/home.component';
-
-import { KSSwiperModule } from 'angular2-swiper';
 import { Swiper1Component } from './swiper1/swiper1.component';
+import { AfdemoComponent } from './afdemo/afdemo.component';
 
-// Must export the config
 export const firebaseConfig = {
   apiKey: 'AIzaSyBHUHIFoL9iaUL9URgmwQSDhxb25FNaS74',
   authDomain: 'gold-river-reptile.firebaseapp.com',
@@ -27,26 +31,35 @@ export const firebaseConfig = {
 };
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    SharedModule,
+    HttpModule,
+    routing,
+    AnimalsModule,
+    ProjectsModule,
+    AuthModule,
+    NgbModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig)
+  ],
   declarations: [
     AppComponent,
     HomeSliderComponent,
-    AnimalDetailInfoComponent,
-    ProjectDetailInfoComponent,
-    AnimalsListComponent,
-    ProjectsListComponent,
-    AvailableListComponent,
     CustomerPortalComponent,
     HomeComponent,
-    Swiper1Component
+    Swiper1Component,
+    AfdemoComponent
   ],
-  imports: [
-    KSSwiperModule,
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    routing
+  providers: [
+    appRoutingProviders,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
-  providers: [appRoutingProviders],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+  public masonryOptions: MasonryOptions = {
+    transitionDuration: '0.8s',
+    gutter: 35
+  };
+}

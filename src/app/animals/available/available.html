@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+
+      <h2>{{title}}</h2>
+
+      <masonry [options]="masonryOptions" [useImagesLoaded]="true">
+        <masonry-brick *ngFor="let animal of available; let i = index" class="brick card card-success card-inverse">
+          <app-animal-card [animal]="animal"></app-animal-card>
+        </masonry-brick>
+      </masonry>
+
+    </div>
+  </div>
+</div>

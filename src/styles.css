@@ -12,6 +12,9 @@
 /* Bootstrap Overrides */
 .navbar { padding: .5rem 0 }
 
+.card-block a { color: #efefef; }
+.card-block a:hover { color: #ffcc00; text-decoration: none; }
+
 .my-fluid-container {
   padding-left: 15px;
   padding-right: 15px;
@@ -52,4 +55,15 @@
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+}
+
+.brick {
+  padding: 5px;
+  background-color: #efefef;
+  /*border: 1px solid #aaa;*/
+  width: 265px;
+}
+
+.brick:hover {
+  background-color: #cdcdcd;
 }

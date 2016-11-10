@@ -1,0 +1,13 @@
+<img class="card-img-top img-fluid" src="/assets/images/16/20/005.jpg" alt="Dark Matter">
+<div class="card-block">
+  <h5 class="card-title">
+    <a [routerLink]="['/project', project.Id]">
+      {{project.Dam.TrackingId}} x {{project.Sire.TrackingId}}
+    </a>
+  </h5>
+  <p class="card-text">
+    {{project.DateStart | date: 'yyyy'}}<br/>
+    {{project.Description | truncate : [120]}}
+  </p>
+  <button class="btn btn-primary" (click)="gotoDetail(project)">Details</button>
+</div>
