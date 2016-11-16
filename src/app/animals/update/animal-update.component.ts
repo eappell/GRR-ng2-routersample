@@ -14,6 +14,9 @@ export class AnimalUpdateComponent implements OnInit {
   @Input() animal: IAnimal;
   errorMessage: string;
   statuses: any[];
+  projects: any[];
+  owners: any[];
+
   public mask: Array<string | RegExp>;
   public formControlInput: FormControl = new FormControl();
 
@@ -25,12 +28,17 @@ export class AnimalUpdateComponent implements OnInit {
           status => this.statuses = status,
           error => this.errorMessage = <any>error
         );
-    this.mask = ['$',/[1-9]/, /\d/, /\d/, /\d/,'.', /\d/, /\d/];
+    this._sharedServices.getData('Projects?$expand=Sire,Dam&orderby=DateStart desc')
+        .subscribe(
+          projects => this.projects = projects,
+          error => this.errorMessage = <any>error
+        );
+    this.mask = ['$',/[1-9]/, /\d/, /\d?/, /\d?/];
   }
 
   updateAnimal (_animal: IAnimal): void {
-    if(!_animal) { return; }
-    this._animalService.addAnimal(_animal)
+    if (!_animal) { return; }
+    this._animalService.updateAnimal(this.animal)
         .subscribe (
           animal => this.animal = animal,
           error => this.errorMessage = <any>error);

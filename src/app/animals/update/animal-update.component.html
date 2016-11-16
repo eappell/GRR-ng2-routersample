@@ -27,6 +27,7 @@
             <div class="col-sm-4 col-md-4">
               <!--<input class="form-control" placeholder="DOB" name="DOB" [(ngModel)]="animal.DOB" ngbDatepicker #d="ngbDatepicker">-->
               <input type="date" class="form-control" placeholder="DOB" id="DOB" [ngModel]="animal.DOB | date: 'yyyy-MM-dd'" name="DOB">
+              <!--<p-calendar [(ngModel)]="animal.DOB" name="DOB"></p-calendar>-->
             </div>
           </div>
           <div class="form-group row">
@@ -57,13 +58,13 @@
               <label for="FatherId" class="col-form-label">Father</label>
             </div>
             <div class="col-sm-4 col-md-4">
-              <input type="text" class="form-control" placeholder="Father ID" id="FatherId" [ngModel]="animal.FatherId" name="fatherId">
+              <input type="text" class="form-control" placeholder="Father ID" id="FatherId" [ngModel]="animal.ProductOfProject.Sire.Name" name="fatherId">
             </div>
             <div class="col-sm-2 col-md-2">
               <label for="MotherId" class="col-form-label">Mother</label>
             </div>
             <div class="col-sm-4 col-md-4">
-              <input type="text" class="form-control" placeholder="Mother ID" id="MotherId" [ngModel]="animal.MotherId" name="motherId">
+              <input type="text" class="form-control" placeholder="Mother ID" id="MotherId" [ngModel]="animal.ProductOfProject.Dam.Name" name="motherId">
             </div>
           </div>
           <div class="form-group row">
@@ -149,24 +150,18 @@
             <div class="col-sm-4 col-md-4">
             <input type="text" class="form-control" placeholder="Weight" id="Weight" name="Weight" [ngModel]="animal.Weight">
             </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-3 col-md-3">
-              <label for="ProductOfProject" class="col-form-label">Product Of Project</label>
-            </div>
-            <div class="col-sm-3 col-md-3">
-              <input type="text" class="form-control" placeholder="Product Of Project" name="ProductOfProject" id="ProductOfProject" [ngModel]="animal.ProductOfProjectId">
-            </div>
             <div class="col-sm-2 col-md-2">
-              <label for="Owner" class="col-form-label">Owner</label>
+              <label for="ProductOfProject" class="col-form-label">From Project</label>
             </div>
             <div class="col-sm-4 col-md-4">
-              <input type="text" class="form-control" placeholder="Owner" id="Owner" name="Owner" [ngModel]="animal.OwnerId">
+              <select class="form-control" id="projects" [ngModel]="animal.ProductOfProject" name="projects">
+                <option *ngFor="let project of projects" [value]="project.Id">{{project.DateStart | date: 'yyyy'}} - {{project.Sire.TrackingId}} x {{project.Dam.TrackingId}}</option>
+              </select>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="updateAnimal(model)">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="updateAnimal(animal)">Save changes</button>
       </div>

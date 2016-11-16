@@ -14,13 +14,15 @@ import { SharedModule } from '../shared/shared.module';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule, conformToMask, MaskedInputDirective } from 'angular2-text-mask';
+import { CalendarModule } from 'primeng/components/calendar/calendar';
 
 @NgModule({
   imports: [
     SharedModule,
     AnimalRoutingModule,
     NgbModule,
-    TextMaskModule
+    TextMaskModule,
+    CalendarModule
   ],
   declarations: [
     AnimalsComponent,

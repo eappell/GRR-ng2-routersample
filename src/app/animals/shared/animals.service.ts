@@ -16,7 +16,7 @@ export class AnimalService {
     constructor(private _http: Http) { }
 
     getAnimal(id: number): Observable<IAnimal> {
-      let svcUrl = this._animalsSvc + '(' + id.toString() + ')?$expand=Photos,Events,Status';
+      let svcUrl = this._animalsSvc + '(' + id.toString() + ')?$expand=Photos,Events,Status,ProductOfProject($expand=Sire,Dam)';
       return this._http.get(svcUrl, {  })
                   .map((response: Response) => response.json() as IAnimal)
                   .cache()
@@ -54,11 +54,11 @@ export class AnimalService {
     }
 
     updateAnimal(animal: IAnimal): Observable<IAnimal> {
-      let bodyString = JSON.stringify(animal);
-      let headers      = new Headers({ 'Content-Type': 'application/json' });
+      let bodyString    = JSON.stringify(animal);
+      let headers       = new Headers({ 'Content-Type': 'application/json' });
       let options       = new RequestOptions({ headers: headers });
 
-      return this._http.patch(`${this._animalsSvc}(${animal['id']})`, animal, options)
+      return this._http.patch(`${this._animalsSvc}(${animal.Id})`, animal, options)
                         .map(this.extractData)
                         .catch(this.handleError);
     }

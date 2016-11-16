@@ -13,14 +13,6 @@ export class SharedServices {
 
     constructor(private _http: Http) { }
 
-    getStatuses(): Observable<{}> {
-      return this._http.get(this._serviceRoot + 'Status')
-                  .map(response => response.json().value as any[])
-                  .cache()
-                  .do(data => console.table('Status: ' + JSON.stringify(data)))
-                  .catch(this.handleError);
-    }
-
     getData(dataType): Observable<{}[]> {
       return this._http.get(this._serviceRoot + dataType)
                   .map(response => response.json().value as any[])
