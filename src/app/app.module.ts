@@ -23,6 +23,8 @@ import { HomeComponent } from './home/home.component';
 import { Swiper1Component } from './swiper1/swiper1.component';
 import { AfdemoComponent } from './afdemo/afdemo.component';
 
+import { SharedServices } from './shared/shared.services';
+
 export const firebaseConfig = {
   apiKey: 'AIzaSyBHUHIFoL9iaUL9URgmwQSDhxb25FNaS74',
   authDomain: 'gold-river-reptile.firebaseapp.com',
@@ -52,6 +54,7 @@ export const firebaseConfig = {
   ],
   providers: [
     appRoutingProviders,
+    SharedServices,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]

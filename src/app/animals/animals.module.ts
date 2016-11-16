@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
 import { AnimalService } from './shared/animals.service';
 import { AnimalsComponent } from './animals.component';
@@ -11,10 +12,15 @@ import { AnimalRoutingModule } from './animal-routing.module';
 
 import { SharedModule } from '../shared/shared.module';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TextMaskModule, conformToMask, MaskedInputDirective } from 'angular2-text-mask';
+
 @NgModule({
   imports: [
     SharedModule,
-    AnimalRoutingModule
+    AnimalRoutingModule,
+    NgbModule,
+    TextMaskModule
   ],
   declarations: [
     AnimalsComponent,
@@ -25,7 +31,9 @@ import { SharedModule } from '../shared/shared.module';
     AvailableComponent
   ],
   exports: [
-    AnimalCardComponent
+    AnimalCardComponent,
+    AnimalAddComponent,
+    AnimalUpdateComponent
   ],
   providers: [ AnimalService ]
 })

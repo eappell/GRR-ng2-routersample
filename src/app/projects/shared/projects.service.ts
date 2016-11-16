@@ -14,14 +14,14 @@ export class ProjectsService {
     constructor(private _http: Http) { }
 
     getProject(id: number): Observable<IProject> {
-      let svcUrl = this._projectSvc + '(' + id + ')?$expand=Events,Photos,Sire,Dam,Offspring';
+      let svcUrl = this._projectSvc + '(' + id + ')?$expand=Events,Photos,Sire,Dam,Offspring($orderby=TrackingId)';
       return this._http.get(svcUrl)
                   .map(response => response.json() as IProject)
                   .catch(this.handleError);
     }
 
     getProjects(): Observable<IProject[]> {
-      return this._http.get(this._projectSvc + '?$expand=Sire,Dam')
+      return this._http.get(this._projectSvc + '?$expand=Sire,Dam&$orderby=DateStart')
                   .map(response => response.json().value as IProject[])
                   .catch(this.handleError);
     }

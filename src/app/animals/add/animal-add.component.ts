@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IAnimal, Animal } from '../shared/animal.model';
+import { IAnimal } from '../shared/animal.model';
 import { AnimalService } from '../shared/animals.service';
 
 import {Observable} from 'rxjs/Rx';
@@ -10,7 +10,6 @@ import {Observable} from 'rxjs/Rx';
   styleUrls: ['./animal-add.component.css']
 })
 export class AnimalAddComponent implements OnInit {
-
   public animal: IAnimal;
   errorMessage: string;
 

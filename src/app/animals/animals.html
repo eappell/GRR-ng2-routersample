@@ -3,7 +3,7 @@
     <div class="col-md-2">
       <h2>{{title}}</h2>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-8">
       <div class="form-inline">
         <div class="form-group">
           <label class="label" for="">Filter: </label>
@@ -22,6 +22,12 @@
             </select>
           </div>
         </div>
+    </div>
+    <div class="col-md-2" style="text-align: right">
+      <button class="btn btn-primary" (click)="openAddAnimal()">
+        <i class="fa fa-plus"></i>
+        Add Animal
+      </button>
     </div>
   </div>
   <div class="row">

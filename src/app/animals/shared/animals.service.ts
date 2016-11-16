@@ -20,7 +20,7 @@ export class AnimalService {
       return this._http.get(svcUrl, {  })
                   .map((response: Response) => response.json() as IAnimal)
                   .cache()
-                  .do(data => console.log('Animal: ' + JSON.stringify(data)))
+                  // .do(data => console.log('Animal: ' + JSON.stringify(data)))
                   .catch(this.handleError);
     }
 
@@ -31,7 +31,7 @@ export class AnimalService {
       return this._http.get(this._animalsSvc, { search: params })
                   .map(response => response.json().value as IAnimal[])
                   .cache()
-                  .do(data => console.log('Available: ' + JSON.stringify(data)))
+                  // .do(data => console.log('Available: ' + JSON.stringify(data)))
                   .catch(this.handleError);
     }
 
@@ -39,7 +39,7 @@ export class AnimalService {
       return this._http.get(this._animalsSvc)
                   .map(response => response.json().value as IAnimal[])
                   .cache()
-                  .do(data => console.log('Animals: ' + JSON.stringify(data)))
+                  // .do(data => console.log('Animals: ' + JSON.stringify(data)))
                   .catch(this.handleError);
     }
 

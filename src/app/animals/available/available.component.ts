@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Animal } from '../shared/animal.model';
+import { IAnimal } from '../shared/animal.model';
 import { AnimalService } from '../shared/animals.service';
 import { Router } from '@angular/router';
 import { MasonryOptions } from 'angular2-masonry';
@@ -13,7 +13,7 @@ import { MasonryOptions } from 'angular2-masonry';
 
 export class AvailableComponent implements OnInit {
   public title: string = 'Available Listing';
-  public available: Animal[];
+  public available: IAnimal[];
   public errorMessage: string;
   public masonryOptions: MasonryOptions = {
     transitionDuration: '0.8s',
@@ -31,7 +31,7 @@ export class AvailableComponent implements OnInit {
     }
   }
 
-  gotoDetail(animal: Animal): void {
+  gotoDetail(animal: IAnimal): void {
     let link = ['/animal', animal.Id];
     this.router.navigate(link);
   }

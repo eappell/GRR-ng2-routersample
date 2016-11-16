@@ -2,9 +2,12 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Animal } from '../shared/animal.model';
+import { Animal, IAnimal } from '../shared/animal.model';
 import { AnimalService } from '../shared/animals.service';
-import { KSSwiperContainer, KSSwiperSlide} from 'angular2-swiper';
+import { AnimalUpdateComponent } from '../update/animal-update.component';
+import { KSSwiperContainer } from 'angular2-swiper';
+
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-animal',
@@ -15,7 +18,8 @@ import { KSSwiperContainer, KSSwiperSlide} from 'angular2-swiper';
 export class AnimalComponent implements OnInit {
   public title: string = 'Animal Details';
   public errorMessage: string;
-  @Input() animal: Animal;
+  closeResult: string;
+  @Input() animal: IAnimal;
 
   // this is how you get access to the child component
   @ViewChild(KSSwiperContainer) swiperContainer: KSSwiperContainer;
@@ -25,7 +29,8 @@ export class AnimalComponent implements OnInit {
     private _animalService: AnimalService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private modalService: NgbModal
   ) {
     this.swiper1SwipeOptions = {
       slidesPerView: 1,
@@ -48,6 +53,21 @@ export class AnimalComponent implements OnInit {
 
   onBack(): void {
     this.router.navigate(['/animals']);
+  }
+
+  openUpdateAnimal() {
+    const addAdnimalModalRef = this.modalService.open(AnimalUpdateComponent, { size: 'lg' });
+    addAdnimalModalRef.componentInstance.animal = this.animal;
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 
   ngOnInit() {

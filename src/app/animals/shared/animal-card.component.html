@@ -17,10 +17,10 @@
   <!--<button class="btn btn-primary" (click)="gotoDetail(animal)">Details</button>-->
 </div>
 
-<template ngbModalContainer #content let-c="close">
+<template #content let-c="close">
   <div class="modal-header">
     <h4 class="modal-title">
-      {{animal.Name ? animal.Name : animal.Id}}
+      {{animal.Name ? animal.Name : animal.TrackingId}}
     </h4>
   </div>
   <div class="modal-body">
