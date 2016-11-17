@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../_auth/authentication.service';
 import { AlertService } from '../alert/alert.service';
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private routerLink: RouterLink,
+        // private routerLink: RouterLink,
         private authenticationService: AuthenticationService,
         private alertService: AlertService) { }
 

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AnimalService } from './shared/animals.service';
 import { AnimalsComponent } from './animals.component';
@@ -12,17 +12,15 @@ import { AnimalRoutingModule } from './animal-routing.module';
 
 import { SharedModule } from '../shared/shared.module';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule, conformToMask, MaskedInputDirective } from 'angular2-text-mask';
-import { CalendarModule } from 'primeng/components/calendar/calendar';
 
 @NgModule({
   imports: [
     SharedModule,
     AnimalRoutingModule,
     NgbModule,
-    TextMaskModule,
-    CalendarModule
+    TextMaskModule
   ],
   declarations: [
     AnimalsComponent,

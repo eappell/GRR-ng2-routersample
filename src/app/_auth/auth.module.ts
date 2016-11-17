@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { AlertComponent } from '../alert/alert.component';
+import { AlertService } from '../alert/alert.service';
 
 @NgModule({
   imports: [ SharedModule ],
@@ -21,7 +22,13 @@ import { AlertComponent } from '../alert/alert.component';
   providers: [
     AuthGuard,
     AuthenticationService,
-    UserService
+    UserService,
+    AlertService
+  ],
+  exports: [
+    AlertComponent,
+    LoginComponent,
+    RegisterComponent
   ]
 })
 

@@ -15,8 +15,12 @@ export class AuthenticationService {
     }
 
     login(username, password) {
+        let creds = JSON.stringify({ username: username, password: password, grant_type: 'password' });
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
         return this.http.post(
-          this.rootAuthUrl + '/token', JSON.stringify({ username: username, password: password, grant_type: 'password' }))
+          this.rootAuthUrl + '/token', creds, headers)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();
