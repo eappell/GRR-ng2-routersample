@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms'
+import { FormControl } from '@angular/forms';
 
 import { IAnimal } from '../shared/animal.model';
 import { AnimalService } from '../shared/animals.service';
 import { SharedServices } from '../../shared/shared.services';
+
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-animal-update',
@@ -20,7 +22,9 @@ export class AnimalUpdateComponent implements OnInit {
   public mask: Array<string | RegExp>;
   public formControlInput: FormControl = new FormControl();
 
-  constructor(private _animalService: AnimalService, private _sharedServices: SharedServices) { }
+  constructor(private _animalService: AnimalService,
+              private _sharedServices: SharedServices,
+              public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
     this._sharedServices.getData('Status')

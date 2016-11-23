@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../_auth/authentication.service';
@@ -11,6 +11,7 @@ import { AlertService } from '../alert/alert.service';
 })
 
 export class LoginComponent implements OnInit {
+    @Input() returnRoute: string;
     model: any = {};
     loading = false;
 
@@ -21,20 +22,27 @@ export class LoginComponent implements OnInit {
         private alertService: AlertService) { }
 
     ngOnInit() {
-        // reset login status
-        this.authenticationService.logout();
+      // reset login status
+      debugger
+      this.authenticationService.logout();
     }
 
     login() {
-        this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
-            .subscribe(
-                data => {
-                    this.router.navigate(['/']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+      this.loading = true;
+      this.authenticationService.login(this.model.username, this.model.password)
+          .subscribe(
+              data => {
+                if (this.returnRoute && this.returnRoute !== '') {
+                  this.router.navigate([this.returnRoute]);
+                } else {
+                  this.router.navigate(['/']);
+                }
+
+                console.log(data);
+              },
+              error => {
+                  this.alertService.error(error);
+                  this.loading = false;
+              });
     }
 }

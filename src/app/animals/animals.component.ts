@@ -4,7 +4,7 @@ import { AnimalService } from './shared/animals.service';
 import { AnimalAddComponent } from './add/animal-add.component';
 import { Router } from '@angular/router';
 import { MasonryOptions } from 'angular2-masonry';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-animals',
@@ -64,9 +64,8 @@ export class AnimalsComponent implements OnInit {
     return this.animals;
   }
 
-  openAddAnimal(content) {
+  openAddAnimal() {
     const addAnimalModalRef = this.modalService.open(AnimalAddComponent, { size: 'lg' });
-    // addAnimalModalRef.componentInstance.name = 'World';
   }
 
   gotoDetail(animal: IAnimal): void {

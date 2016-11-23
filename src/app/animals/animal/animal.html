@@ -9,11 +9,11 @@
             {{animal.Description}}
           </p>
           <p>
-            <button class="btn btn-default" (click)="openAddAnimal()">
+            <button class="btn btn-default" (click)="onBack()">
               <i class="fa fa-chevron-left"></i>
               Back
             </button>
-            <button class="btn btn-primary" (click)="openUpdateAnimal()">
+            <button class="btn btn-primary" (click)="openUpdateAnimal()" *ngIf="IsAuthenticated">
               <i class="fa fa-pencil"></i>
               Edit/Update
             </button>

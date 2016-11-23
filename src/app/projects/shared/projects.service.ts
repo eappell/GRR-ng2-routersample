@@ -21,7 +21,7 @@ export class ProjectsService {
     }
 
     getProjects(): Observable<IProject[]> {
-      return this._http.get(this._projectSvc + '?$expand=Sire,Dam&$orderby=DateStart')
+      return this._http.get(this._projectSvc + '?$expand=Sire,Dam&$orderby=DateStart asc')
                   .map(response => response.json().value as IProject[])
                   .catch(this.handleError);
     }
