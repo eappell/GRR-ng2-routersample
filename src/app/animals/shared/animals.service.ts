@@ -43,9 +43,12 @@ export class AnimalService {
                   .catch(this.handleError);
     }
 
-    addAnimal(animal: IAnimal): Observable<IAnimal> {
+    addAnimal(token: string, animal: IAnimal): Observable<IAnimal> {
+      if (token === null || token.length < 1) { return; }
+
       let bodyString = JSON.stringify(animal); // Stringify payload
       let headers    = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+      headers.append('Authorization', 'Bearer ' + token);
       let options    = new RequestOptions({ headers: headers }); // Create a request option
 
       return this._http.post(this._animalsSvc, { animal }, options)
@@ -53,9 +56,12 @@ export class AnimalService {
                         .catch(this.handleError);
     }
 
-    updateAnimal(animal: IAnimal): Observable<IAnimal> {
+    updateAnimal(token: string, animal: IAnimal): Observable<IAnimal> {
+      if (token === null || token.length < 1) { return; }
+
       let bodyString    = JSON.stringify(animal);
       let headers       = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', 'Bearer ' + token);
       let options       = new RequestOptions({ headers: headers });
 
       return this._http.patch(`${this._animalsSvc}(${animal.Id})`, animal, options)
@@ -63,7 +69,11 @@ export class AnimalService {
                         .catch(this.handleError);
     }
 
-    deleteAnimal(id: number): Observable<IAnimal> {
+    deleteAnimal(token: string, id: number): Observable<IAnimal> {
+      if (token === null || token.length < 1) { return; }
+
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      headers.append('Authorization', 'Bearer ' + token);
       return this._http.delete(`${this._animalsSvc}/(${id})`)
                         .map(this.extractData)
                         .catch(this.handleError);

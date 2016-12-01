@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../_auth/authentication.service';
 import { AlertService } from '../alert/alert.service';
+
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-login',
@@ -14,35 +16,46 @@ export class LoginComponent implements OnInit {
     @Input() returnRoute: string;
     model: any = {};
     loading = false;
+    redirect: string;
 
     constructor(
         private router: Router,
         // private routerLink: RouterLink,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) { }
+        private route: ActivatedRoute,
+        private alertService: AlertService,
+        public activeModal: NgbActiveModal) { }
 
     ngOnInit() {
       // reset login status
-      debugger
+      // this.redirect = localStorage.getItem('lastRoute');
+      this.redirect = this.route.snapshot.params['redirect'];
       this.authenticationService.logout();
     }
 
     login() {
       this.loading = true;
-      this.authenticationService.login(this.model.username, this.model.password)
+      this.authenticationService
+          .login(this.model.username, this.model.password)
           .subscribe(
-              data => {
-                if (this.returnRoute && this.returnRoute !== '') {
-                  this.router.navigate([this.returnRoute]);
-                } else {
-                  this.router.navigate(['/']);
-                }
+            () => { this.loginSuccess(); },
+            error => { this.loginFail(error); }
+          );
+    }
 
-                console.log(data);
-              },
-              error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-              });
+    loginSuccess(): void {
+      if (this.redirect) {
+        this.activeModal.dismiss();
+        this.router.navigateByUrl(this.redirect);
+      } else {
+        this.activeModal.dismiss();
+        // this.router.navigate(['/']);
+      }
+    }
+
+    loginFail(error): void {
+      this.activeModal.dismiss();
+      this.alertService.error(error);
+      this.loading = false;
     }
 }

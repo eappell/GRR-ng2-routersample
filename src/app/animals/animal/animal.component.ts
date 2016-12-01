@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Animal, IAnimal } from '../shared/animal.model';
 import { AnimalService } from '../shared/animals.service';
+import { AuthenticationService } from '../../_auth/authentication.service';
 import { AnimalUpdateComponent } from '../update/animal-update.component';
 import { KSSwiperContainer } from 'angular2-swiper';
 
@@ -18,7 +19,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class AnimalComponent implements OnInit {
   public title: string = 'Animal Details';
   public errorMessage: string;
-  IsAuthenticated: boolean;
+  IsAuthenticated: boolean = this.authService.isAuthenticated();
   closeResult: string;
   @Input() animal: IAnimal;
 
@@ -31,7 +32,8 @@ export class AnimalComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authService: AuthenticationService
   ) {
     this.swiper1SwipeOptions = {
       slidesPerView: 1,
@@ -46,11 +48,6 @@ export class AnimalComponent implements OnInit {
 
   moveNext() {
     this.swiperContainer.swiper.slideNext();
-  }
-
-  isAuthenticated(): void {
-    let user = localStorage.getItem('currentUser');
-    this.IsAuthenticated = user !== null && user !== undefined;
   }
 
   movePrev() {
@@ -77,7 +74,6 @@ export class AnimalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isAuthenticated();
     this.route.params.forEach((params: Params) => {
       let id = params['id'];
       this._animalService.getAnimal(id).subscribe(

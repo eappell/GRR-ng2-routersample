@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { AuthenticationService } from './authentication.service';
 import { UserService } from './user.service';
-import { User } from './user';
 import { AuthGuard } from './auth.guard';
 
 import { SharedModule } from '../shared/shared.module';

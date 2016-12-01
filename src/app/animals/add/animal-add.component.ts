@@ -4,9 +4,9 @@ import { FormControl } from '@angular/forms';
 import { IAnimal } from '../shared/animal.model';
 import { AnimalService } from '../shared/animals.service';
 import { SharedServices } from '../../shared/shared.services';
+import { AuthenticationService } from '../../_auth/authentication.service';
 
 import { Observable } from 'rxjs/Rx';
-
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -26,6 +26,7 @@ export class AnimalAddComponent implements OnInit {
 
   constructor(private _animalService: AnimalService,
               private _sharedServices: SharedServices,
+              private _authService: AuthenticationService,
               public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -43,10 +44,14 @@ export class AnimalAddComponent implements OnInit {
   }
 
   addAnimal(_animal: IAnimal): void {
-    if(!_animal) { return; }
-    this._animalService.addAnimal(_animal)
-        .subscribe (
-          animal => this.animal = animal,
-          error => this.errorMessage = <any>error);
+    if (!_animal) { return; }
+
+    let token: string = this._authService.getToken();
+    if (token.length > 10) {
+      this._animalService.addAnimal(token, _animal)
+          .subscribe (
+            animal => this.animal = animal,
+            error => this.errorMessage = <any>error);
+    }
   }
 }

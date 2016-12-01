@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 
+import { tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+
+import * as moment from 'moment';
 
 @Injectable()
 export class AuthenticationService {
     public token: string;
+    public expires: Date;
     private rootAuthUrl: string = 'http://api.herptracker.com/oauth';
 
     constructor(private http: Http) {
@@ -30,8 +34,10 @@ export class AuthenticationService {
                 let user = response.json();
                 if (user && user.access_token) {
                   this.token = user.access_token;
+                  this.expires = this.getTokenExpiration(user.expires_in);
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
-                  localStorage.setItem('currentUser', JSON.stringify({username: username, token: this.token}));
+                  localStorage.setItem('access_token', this.token);
+                  localStorage.setItem('currentUser', JSON.stringify({username: username, token: this.token, expires: this.expires}));
                   // return true to indicate the successful login
                   return true;
                 } else {
@@ -41,9 +47,31 @@ export class AuthenticationService {
             });
     }
 
+    public isAuthenticated(): boolean {
+      if (localStorage.getItem('currentUser')) {
+        let userToken = JSON.parse(localStorage.getItem('currentUser'));
+        let expiresOn = moment(userToken.expires);
+        // Confirm there is a token, and it's expiration is later than now
+        return userToken.token !== '' && expiresOn > moment();
+      }
+      return false;
+    }
+
+    getToken(): string {
+      if (localStorage.getItem('access_token')) {
+        let token: string = localStorage.getItem('access_token');
+        return token.length > 10 ? token : '';
+      }
+      return '';
+    }
+
+    getTokenExpiration(seconds): Date {
+      let newDate: Date = moment().add(seconds, 'seconds').toDate();
+      return newDate;
+    }
+
     logout() {
       this.token = null;
-      // remove user from local storage to log user out
       localStorage.removeItem('currentUser');
     }
 }

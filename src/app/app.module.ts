@@ -9,6 +9,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { MasonryOptions } from 'angular2-masonry';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from 'angularfire2';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 // INTERNAL MODULES
 import { SharedModule } from './shared/shared.module';
@@ -55,6 +56,8 @@ export const firebaseConfig = {
   providers: [
     appRoutingProviders,
     SharedServices,
+    NgbModal,
+    NgbActiveModal,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]

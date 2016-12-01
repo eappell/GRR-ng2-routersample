@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IAnimal } from './shared/animal.model';
 import { AnimalService } from './shared/animals.service';
 import { AnimalAddComponent } from './add/animal-add.component';
+import { AuthenticationService } from '../_auth/authentication.service';
 import { Router } from '@angular/router';
 import { MasonryOptions } from 'angular2-masonry';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +17,7 @@ export class AnimalsComponent implements OnInit {
   public title: string = 'Collection';
   public animals: IAnimal[];
   public errorMessage: string;
+  IsAuthenticated: boolean = this.authService.isAuthenticated();
   public masonryOptions: MasonryOptions = {
     transitionDuration: '0.5s',
     gutter: 35
@@ -24,7 +26,8 @@ export class AnimalsComponent implements OnInit {
   constructor(
     private animalService: AnimalService,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authService: AuthenticationService
   ) {}
 
   getAnimals(): void {
@@ -37,8 +40,8 @@ export class AnimalsComponent implements OnInit {
   }
 
   filterAnimals(filter:string): void {
-    if(this.animals) {
-      switch(filter) {
+    if (this.animals) {
+      switch (filter) {
         case "babies": {
           this.animals.filter(an => an.hatchDate)
         }
@@ -65,7 +68,7 @@ export class AnimalsComponent implements OnInit {
   }
 
   openAddAnimal() {
-    const addAnimalModalRef = this.modalService.open(AnimalAddComponent, { size: 'lg' });
+    this.modalService.open(AnimalAddComponent, { size: 'lg' });
   }
 
   gotoDetail(animal: IAnimal): void {
