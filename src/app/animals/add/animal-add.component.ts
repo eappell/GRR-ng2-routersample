@@ -46,12 +46,9 @@ export class AnimalAddComponent implements OnInit {
   addAnimal(_animal: IAnimal): void {
     if (!_animal) { return; }
 
-    let token: string = this._authService.getToken();
-    if (token.length > 10) {
-      this._animalService.addAnimal(token, _animal)
-          .subscribe (
-            animal => this.animal = animal,
-            error => this.errorMessage = <any>error);
-    }
+    this._animalService.addAnimal(_animal)
+        .subscribe (
+          animal => this.animal = animal,
+          error => this.errorMessage = <any>error);
   }
 }

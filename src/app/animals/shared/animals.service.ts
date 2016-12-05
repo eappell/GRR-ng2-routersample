@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Http, URLSearchParams, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Http, URLSearchParams, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { AuthenticationService } from '../../_auth/authentication.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/cache';
 import 'rxjs/add/operator/publishReplay';
@@ -13,7 +14,7 @@ import { IAnimal } from './animal.model';
 export class AnimalService {
     private _animalsSvc = 'http://api.herptracker.com/odata/Animals';
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http, private authService: AuthenticationService) { }
 
     getAnimal(id: number): Observable<IAnimal> {
       let svcUrl = this._animalsSvc + '(' + id.toString() + ')?$expand=Photos,Events,Status,ProductOfProject($expand=Sire,Dam)';
@@ -43,39 +44,49 @@ export class AnimalService {
                   .catch(this.handleError);
     }
 
-    addAnimal(token: string, animal: IAnimal): Observable<IAnimal> {
-      if (token === null || token.length < 1) { return; }
+    addAnimal(animal: IAnimal): Observable<IAnimal> {
+      let token = this.authService.getToken();
+      if (token === null || token.length < 9) { return; }
 
-      let bodyString = JSON.stringify(animal); // Stringify payload
-      let headers    = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-      headers.append('Authorization', 'Bearer ' + token);
-      let options    = new RequestOptions({ headers: headers }); // Create a request option
+      let authHeader = new Headers({ 'Content-Type': 'application/json' });
+      authHeader.append('Authorization', 'Bearer ' + token);
 
-      return this._http.post(this._animalsSvc, { animal }, options)
+      let options    = new RequestOptions({ headers: authHeader });
+      // let bodyString    = JSON.stringify(animal);
+
+      return this._http.post(this._animalsSvc, animal, options)
                         .map(this.extractData)
+                        .cache()
                         .catch(this.handleError);
     }
 
-    updateAnimal(token: string, animal: IAnimal): Observable<IAnimal> {
+    updateAnimal(animal: IAnimal): Observable<IAnimal> {
+      let token = this.authService.getToken();
       if (token === null || token.length < 1) { return; }
 
-      let bodyString    = JSON.stringify(animal);
-      let headers       = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', 'Bearer ' + token);
-      let options       = new RequestOptions({ headers: headers });
+      let authHeader = new Headers({ 'Content-Type': 'application/json' });
+      authHeader.append('Authorization', 'Bearer ' + token);
+
+      let options    = new RequestOptions({ headers: authHeader });
+      // let bodyString    = JSON.stringify(animal);
 
       return this._http.patch(`${this._animalsSvc}(${animal.Id})`, animal, options)
                         .map(this.extractData)
+                        .cache()
                         .catch(this.handleError);
     }
 
-    deleteAnimal(token: string, id: number): Observable<IAnimal> {
+    deleteAnimal(id: number): Observable<IAnimal> {
+      let token = this.authService.getToken();
       if (token === null || token.length < 1) { return; }
 
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      headers.append('Authorization', 'Bearer ' + token);
-      return this._http.delete(`${this._animalsSvc}/(${id})`)
+      let authHeader = new Headers({ 'Content-Type': 'application/json' });
+      authHeader.append('Authorization', 'Bearer ' + token);
+
+      let options    = new RequestOptions({ headers: authHeader });
+      return this._http.delete(`${this._animalsSvc}/(${id})`, options)
                         .map(this.extractData)
+                        .cache()
                         .catch(this.handleError);
     }
 

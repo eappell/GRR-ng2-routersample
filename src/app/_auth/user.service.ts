@@ -4,7 +4,8 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 @Injectable()
 export class UserService {
     private rootAuthUrl: string = 'http://api.herptracker.com/api/accounts';
-    constructor(private http: Http) { }
+
+    constructor(private http: Http) {}
 
     getAll() {
         return this.http.get(this.rootAuthUrl + '/users', this.jwt()).map((response: Response) => response.json());

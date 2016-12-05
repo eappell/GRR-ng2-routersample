@@ -45,12 +45,9 @@ export class AnimalUpdateComponent implements OnInit {
   updateAnimal (_animal: IAnimal): void {
     if (!_animal) { return; }
 
-    let token: string = this._authService.getToken();
-    if (token.length > 10) {
-      this._animalService.updateAnimal(token, this.animal)
-          .subscribe (
-            animal => this.animal = animal,
-            error => this.errorMessage = <any>error);
-    }
+    this._animalService.updateAnimal(this.animal)
+        .subscribe (
+          animal => this.animal = animal,
+          error => this.errorMessage = <any>error);
   }
 }

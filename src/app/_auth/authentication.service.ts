@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 
-import { tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import * as moment from 'moment';
@@ -12,11 +12,13 @@ export class AuthenticationService {
     public token: string;
     public expires: Date;
     private rootAuthUrl: string = 'http://api.herptracker.com/oauth';
+    private loggedIn: boolean = false;
 
     constructor(private http: Http) {
         // set token if saved in local storage
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
+        this.loggedIn = this.isAuthenticated();
     }
 
     login(username, password) {
@@ -39,8 +41,10 @@ export class AuthenticationService {
                   localStorage.setItem('access_token', this.token);
                   localStorage.setItem('currentUser', JSON.stringify({username: username, token: this.token, expires: this.expires}));
                   // return true to indicate the successful login
+                  this.loggedIn = true;
                   return true;
                 } else {
+                  this.loggedIn = false;
                   // return false to indicate failed login
                   return false;
                 }
@@ -52,7 +56,8 @@ export class AuthenticationService {
         let userToken = JSON.parse(localStorage.getItem('currentUser'));
         let expiresOn = moment(userToken.expires);
         // Confirm there is a token, and it's expiration is later than now
-        return userToken.token !== '' && expiresOn > moment();
+        let isLoggedIn = userToken.token !== '' && expiresOn > moment();
+        return isLoggedIn;
       }
       return false;
     }
@@ -73,5 +78,6 @@ export class AuthenticationService {
     logout() {
       this.token = null;
       localStorage.removeItem('currentUser');
+      this.loggedIn = false;
     }
 }

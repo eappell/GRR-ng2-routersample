@@ -23,8 +23,10 @@ export class AppComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout();
-    this.IsAuthenticated = false;
+    if (confirm('Are you sure you want to log out?')) {
+      this.authService.logout();
+      this.IsAuthenticated = false;
+    }
   }
 
   ngOnInit() {

@@ -17,7 +17,7 @@ export class AnimalsComponent implements OnInit {
   public title: string = 'Collection';
   public animals: IAnimal[];
   public errorMessage: string;
-  IsAuthenticated: boolean = this.authService.isAuthenticated();
+  IsAuthenticated: boolean;
   public masonryOptions: MasonryOptions = {
     transitionDuration: '0.5s',
     gutter: 35
@@ -77,6 +77,7 @@ export class AnimalsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.IsAuthenticated = this.authService.isAuthenticated();
     this.getAnimals();
   }
 }
