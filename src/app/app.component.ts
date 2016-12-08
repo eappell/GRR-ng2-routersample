@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from './login/login.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from './_auth/authentication.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { AuthenticationService } from './_auth/authentication.service';
 })
 
 export class AppComponent implements OnInit {
-  IsAuthenticated: boolean;
+  public IsAuthenticated: boolean;
   loginModal: LoginComponent;
 
   constructor (
@@ -19,7 +19,11 @@ export class AppComponent implements OnInit {
   ) { }
 
   openLogin(): void {
-    this.modalService.open(LoginComponent, { size: 'sm' });
+    this.modalService.open(LoginComponent, { size: 'sm' }).result.then((result) => {
+      console.log(result);
+    }, (reason) => {
+      this.getDismissReason(reason);
+    });
   }
 
   logout(): void {
@@ -30,6 +34,19 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.IsAuthenticated = this.authService.isAuthenticated();
+    this.authService.isAuthenticated()
+      .subscribe(loggedIn => this.IsAuthenticated = loggedIn);
+  }
+
+  private getDismissReason(reason: any): boolean {
+    console.log(reason);
+    // if (reason === ModalDismissReasons.ESC) {
+    //   return 'by pressing ESC';
+    // } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    //   return 'by clicking on a backdrop';
+    // } else {
+    //   return  `with: ${reason}`;
+    // }
+    return true;
   }
 }

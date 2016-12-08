@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { IAnimal } from './shared/animal.model';
 import { AnimalService } from './shared/animals.service';
 import { AnimalAddComponent } from './add/animal-add.component';
@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./animals.css']
 })
 
-export class AnimalsComponent implements OnInit {
+export class AnimalsComponent implements OnInit, AfterViewInit {
   public title: string = 'Collection';
   public animals: IAnimal[];
   public errorMessage: string;
@@ -77,7 +77,13 @@ export class AnimalsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.IsAuthenticated = this.authService.isAuthenticated();
+    this.authService.isAuthenticated()
+      .subscribe(loggedIn => this.IsAuthenticated = loggedIn);
     this.getAnimals();
+  }
+
+  ngAfterViewInit(){
+    this.authService.isAuthenticated()
+      .subscribe(loggedIn => this.IsAuthenticated = loggedIn);
   }
 }

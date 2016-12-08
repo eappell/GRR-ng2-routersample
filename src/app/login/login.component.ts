@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../_auth/authentication.service';
-import { AlertService } from '../alert/alert.service';
 
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit {
         // private routerLink: RouterLink,
         private authenticationService: AuthenticationService,
         private route: ActivatedRoute,
-        private alertService: AlertService,
         public activeModal: NgbActiveModal) { }
 
     ngOnInit() {
@@ -55,7 +53,6 @@ export class LoginComponent implements OnInit {
 
     loginFail(error): void {
       this.activeModal.dismiss();
-      this.alertService.error(error);
       this.loading = false;
     }
 }

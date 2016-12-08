@@ -74,7 +74,8 @@ export class AnimalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.IsAuthenticated = this.authService.isAuthenticated();
+    this.authService.isAuthenticated()
+      .subscribe(loggedIn => this.IsAuthenticated = loggedIn);
 
     this.route.params.forEach((params: Params) => {
       let id = params['id'];
