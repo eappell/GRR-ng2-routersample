@@ -13,11 +13,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./animals.css']
 })
 
-export class AnimalsComponent implements OnInit, AfterViewInit {
+export class AnimalsComponent implements OnInit {
   public title: string = 'Collection';
   public animals: IAnimal[];
   public errorMessage: string;
-  IsAuthenticated: boolean;
   public masonryOptions: MasonryOptions = {
     transitionDuration: '0.5s',
     gutter: 35
@@ -77,13 +76,6 @@ export class AnimalsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.authService.isAuthenticated()
-      .subscribe(loggedIn => this.IsAuthenticated = loggedIn);
     this.getAnimals();
-  }
-
-  ngAfterViewInit(){
-    this.authService.isAuthenticated()
-      .subscribe(loggedIn => this.IsAuthenticated = loggedIn);
   }
 }

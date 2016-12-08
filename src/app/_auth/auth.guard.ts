@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route, state): Observable<boolean>|boolean {
     this.toUrl = state.url;
-    if (!this.auth.isAuthenticated()) {
+    if (!this.auth.isLoggedIn()) {
       // not logged in so redirect to login page
       localStorage.setItem('lastRoute', state.url);
       this.router.navigate(['/login', { redirect: this.toUrl }]);

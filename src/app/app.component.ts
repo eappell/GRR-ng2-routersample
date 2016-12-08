@@ -10,7 +10,6 @@ import { AuthenticationService } from './_auth/authentication.service';
 })
 
 export class AppComponent implements OnInit {
-  public IsAuthenticated: boolean;
   loginModal: LoginComponent;
 
   constructor (
@@ -29,13 +28,10 @@ export class AppComponent implements OnInit {
   logout(): void {
     if (confirm('Are you sure you want to log out?')) {
       this.authService.logout();
-      this.IsAuthenticated = false;
     }
   }
 
   ngOnInit() {
-    this.authService.isAuthenticated()
-      .subscribe(loggedIn => this.IsAuthenticated = loggedIn);
   }
 
   private getDismissReason(reason: any): boolean {

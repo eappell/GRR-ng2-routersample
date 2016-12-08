@@ -19,7 +19,6 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class AnimalComponent implements OnInit {
   public title: string = 'Animal Details';
   public errorMessage: string;
-  IsAuthenticated: boolean;
   closeResult: string;
   @Input() animal: IAnimal;
 
@@ -74,9 +73,6 @@ export class AnimalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.isAuthenticated()
-      .subscribe(loggedIn => this.IsAuthenticated = loggedIn);
-
     this.route.params.forEach((params: Params) => {
       let id = params['id'];
       this._animalService.getAnimal(id).subscribe(

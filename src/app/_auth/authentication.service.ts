@@ -13,14 +13,11 @@ export class AuthenticationService {
     public token: string;
     public expires: Date;
     private rootAuthUrl: string = 'http://api.herptracker.com/oauth';
-    private loggedIn: boolean = false;
 
     constructor(private http: Http) {
         // set token if saved in local storage
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
-        this.isAuthenticated()
-          .subscribe(loggedIn => this.loggedIn = loggedIn);
     }
 
     login(username, password) {
@@ -51,18 +48,6 @@ export class AuthenticationService {
             });
     }
 
-    public isAuthenticated(): Observable<boolean> {
-      let token = localStorage.getItem('currentUser');
-      if (token) {
-        let tokenObject = JSON.parse(token);
-        let expiresOn = moment(tokenObject.expires);
-        // Confirm there is a token, and it's expiration is later than now
-        let isLoggedIn = tokenObject.token !== '' && expiresOn > moment();
-        return Observable.of(isLoggedIn);
-      }
-      return Observable.of(false);
-    }
-
     public isLoggedIn(): boolean {
       let token = localStorage.getItem('currentUser');
       if (token) {
@@ -91,6 +76,5 @@ export class AuthenticationService {
     logout() {
       this.token = null;
       localStorage.removeItem('currentUser');
-      this.loggedIn = false;
     }
 }
