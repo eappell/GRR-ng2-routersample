@@ -12,6 +12,7 @@ import { AnimalRoutingModule } from './animal-routing.module';
 
 import { SharedModule } from '../shared/shared.module';
 
+import { CalendarModule } from 'primeng/primeng';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule, conformToMask, MaskedInputDirective } from 'angular2-text-mask';
 
@@ -20,7 +21,8 @@ import { TextMaskModule, conformToMask, MaskedInputDirective } from 'angular2-te
     SharedModule,
     AnimalRoutingModule,
     NgbModule,
-    TextMaskModule
+    TextMaskModule,
+    CalendarModule
   ],
   declarations: [
     AnimalsComponent,

@@ -37,7 +37,7 @@ export class AnimalService {
     }
 
     getAnimals(): Observable<IAnimal[]> {
-      return this._http.get(this._animalsSvc)
+      return this._http.get(this._animalsSvc + '?$expand=Status')
                   .map(response => response.json().value as IAnimal[])
                   .cache()
                   // .do(data => console.log('Animals: ' + JSON.stringify(data)))

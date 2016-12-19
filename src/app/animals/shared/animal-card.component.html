@@ -7,13 +7,28 @@
 <div class="card-block">
   <h5 class="card-title">
     <a [routerLink]="['/animal', animal.Id]">
+      <i class="fa fa-venus" placement="top" ngbTooltip="Female" *ngIf="animal.Gender === 'F'"></i>
+      <i class="fa fa-mars" placement="top" ngbTooltip="Male" *ngIf="animal.Gender === 'M'"></i>
       {{animal.Name ? animal.Name : animal.TrackingId}}
     </a>
   </h5>
   <p class="card-text">
       {{animal.Description | truncate : [100] }}
   </p>
+
   <p class="card-text"><small class="text-muted">Hatched: {{animal.DOB | date: 'M/d/yyyy'}}</small></p>
+  <p *ngIf="animal.Status.Name.toLowerCase() !== 'in collection'">
+    <span class="tag tag-primary" *ngIf="animal.Status.Name.toLowerCase() === 'feeding'"
+          placement="top" ngbTooltip="On hold until feeding">Feeding Hold</span>
+    <span class="tag tag-success" *ngIf="animal.Status.Name.toLowerCase() === 'available'"
+          placement="top" ngbTooltip="Available for purchase">Available</span>
+    <span class="tag tag-info" *ngIf="animal.Status.Name.toLowerCase() === 'sold'"
+          placement="top" ngbTooltip="Sold">Sold</span>
+    <span class="tag tag-warning" *ngIf="animal.Status.Name.toLowerCase() === 'hold'"
+          placement="top" ngbTooltip="Holding this neonate back until further notice">Holdback</span>
+    <span class="tag tag-danger" *ngIf="animal.Status.Name.toLowerCase() === 'deceased'"
+          placement="top" ngbTooltip="This animal has died">Deceased</span>
+  </p>
   <!--<button class="btn btn-primary" (click)="gotoDetail(animal)">Details</button>-->
 </div>
 

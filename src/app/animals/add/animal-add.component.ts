@@ -16,6 +16,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AnimalAddComponent implements OnInit {
   public animal: IAnimal;
+  submitted: boolean = false;
   statuses: any[];
   projects: any[];
   owners: any[];
@@ -28,6 +29,8 @@ export class AnimalAddComponent implements OnInit {
               private _sharedServices: SharedServices,
               private _authService: AuthenticationService,
               public activeModal: NgbActiveModal) { }
+
+  onSubmit() { this.submitted = true; }
 
   ngOnInit() {
     this._sharedServices.getData('Status')

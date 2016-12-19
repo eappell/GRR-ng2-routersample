@@ -7,15 +7,18 @@
       <div class="form-inline">
         <div class="form-group">
           <label class="label" for="">Filter: </label>
-            <select class="form-control form-control-sm" placeholder="Filter">
-              <option value="">Test 1</option>
-              <option value="">Test 2</option>
-              <option value="">Test 3</option>
+            <select class="form-control select form-control-sm" placeholder="Filter" (change)="filterAnimals($event)">
+              <option value="">All</option>
+              <option value="babies">Babies</option>
+              <option value="adults">Adults</option>
+              <option value="males">Males</option>
+              <option value="females">Females</option>
+              <option value="chondros">Chondros</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="form-group" style="display:none">
             <label class="label" for="">Sort: </label>
-            <select name="ddlSort" id="ddlSort" class="form-control form-control-sm" aria-placeholder="Sort">
+            <select name="ddlSort" id="ddlSort" class="form-control select form-control-sm" aria-placeholder="Sort">
               <option value="">Test 1</option>
               <option value="">Test 2</option>
               <option value="">Test 3</option>
@@ -32,8 +35,8 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <masonry [options]="masonryOptions" [useImagesLoaded]="true">
-        <masonry-brick *ngFor="let animal of animals; let i = index" class="brick card card-success card-inverse">
+      <masonry #myMasonry [options]="masonryOptions" [useImagesLoaded]="true">
+        <masonry-brick *ngFor="let animal of masonryAnimals; let i = index" class="brick card card-success card-inverse">
           <app-animal-card [animal]="animal"></app-animal-card>
         </masonry-brick>
       </masonry>

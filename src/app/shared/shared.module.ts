@@ -8,6 +8,7 @@ import { MomentModule } from 'angular2-moment';
 
 // PIPES
 import { TruncatePipe } from '../shared/truncate';
+import { OrderByPipe } from '../shared/orderBy.pipe';
 
 @NgModule({
   imports: [
@@ -17,14 +18,15 @@ import { TruncatePipe } from '../shared/truncate';
     MomentModule,
     MasonryModule
   ],
-  declarations: [ TruncatePipe ],
+  declarations: [ TruncatePipe, OrderByPipe ],
   exports: [
     FormsModule,
     CommonModule,
     MomentModule,
     KSSwiperModule,
     MasonryModule,
-    TruncatePipe
+    TruncatePipe,
+    OrderByPipe
   ]
 })
 export class SharedModule {}
