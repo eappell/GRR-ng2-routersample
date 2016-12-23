@@ -60,11 +60,17 @@ export class Animal implements IAnimal {
     OwnerId: number;
 }
 
-export enum AnimalStatus {
-    active,
-    hold,
-    sold,
-    deceased,
-    feeding,
-    waitinglist
+export class AnimalStatus {
+  Id: number;
+  Name: string;
 }
+
+// export enum AnimalStatus {
+//     active,
+//     available,
+//     hold,
+//     sold,
+//     deceased,
+//     feeding,
+//     waitinglist
+// }

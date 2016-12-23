@@ -156,7 +156,7 @@
               <label for="ProductOfProject" class="col-form-label">From Project</label>
             </div>
             <div class="col-sm-4 col-md-4" *ngIf="animal.ProductOfProject">
-              <select class="form-control" id="projects" [(ngModel)]="animal.ProductOfProject" name="projects">
+              <select class="form-control" id="projects" [(ngModel)]="animal.ProductOfProjectId" name="projects">
                 <option *ngFor="let project of projects" [value]="project.Id">{{project.DateStart | date: 'yyyy'}} - {{project.Sire.TrackingId}} x {{project.Dam.TrackingId}}</option>
               </select>
             </div>

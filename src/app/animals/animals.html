@@ -6,8 +6,8 @@
     <div class="col-md-8">
       <div class="form-inline">
         <div class="form-group">
-          <label class="label" for="">Filter: </label>
-            <select class="form-control select form-control-sm" placeholder="Filter" (change)="filterAnimals($event)">
+          <label class="label" for="selFilter">Filter: </label>
+          <select id="selFilter" class="form-control select form-control-sm" placeholder="Filter" (change)="filterAnimals($event)">
               <option value="">All</option>
               <option value="babies">Babies</option>
               <option value="adults">Adults</option>
@@ -15,16 +15,30 @@
               <option value="females">Females</option>
               <option value="chondros">Chondros</option>
             </select>
-          </div>
-          <div class="form-group" style="display:none">
-            <label class="label" for="">Sort: </label>
-            <select name="ddlSort" id="ddlSort" class="form-control select form-control-sm" aria-placeholder="Sort">
+        </div>
+        <div class="form-group">
+          <label class="label" for="selStatus">Status: </label>
+          <select id="selStatus" class="form-control select form-control-sm" placeholder="Filter" (change)="filterAnimals($event)">
+              <option value="">All</option>
+              <option value="active">In Collection</option>
+              <option value="available">Available</option>
+              <option value="sold">Sold</option>
+              <option value="deceased">Deceased</option>
+              <option value="hold">On Hold</option>
+            </select>
+        </div>
+        <div class="form-group" style="display:none">
+          <label class="label" for="">Sort: </label>
+          <select name="ddlSort" id="ddlSort" class="form-control select form-control-sm" aria-placeholder="Sort">
               <option value="">Test 1</option>
               <option value="">Test 2</option>
               <option value="">Test 3</option>
             </select>
-          </div>
         </div>
+        <div class="form-group">
+          <button (click)="resetFilters()">Reset</button>
+        </div>
+      </div>
     </div>
     <div class="col-md-2" style="text-align: right" *ngIf="authService.isLoggedIn()">
       <button class="btn btn-primary" (click)="openAddAnimal()">

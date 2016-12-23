@@ -35,6 +35,7 @@ export class AnimalUpdateComponent implements OnInit {
   get diagnostic() { return JSON.stringify(this.animal); }
 
   ngOnInit() {
+    let animalId = parseInt(this.animal.Id);
     this._sharedServices.getData('Status')
         .subscribe(
           status => this.statuses = status,
@@ -46,6 +47,8 @@ export class AnimalUpdateComponent implements OnInit {
           error => this.errorMessage = <any>error
         );
     this.mask = ['$',/[1-9]/, /\d/, /\d?/, /\d?/];
+    debugger;
+    this._animalService.getAnimal(animalId).subscribe(a => this.animal = a);
   }
 
   updateAnimal (_animal: IAnimal): void {
