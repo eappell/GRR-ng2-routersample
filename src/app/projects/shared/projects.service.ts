@@ -14,7 +14,7 @@ export class ProjectsService {
     constructor(private _http: Http) { }
 
     getProject(id: number): Observable<IProject> {
-      let svcUrl = this._projectSvc + '(' + id + ')?$expand=Events,Photos,Sire,Dam,Offspring($orderby=TrackingId)';
+      let svcUrl = this._projectSvc + '(' + id + ')?$expand=Events,Photos,Sire,Dam,Offspring($orderby=TrackingId;$expand=Status)';
       return this._http.get(svcUrl)
                   .map(response => response.json() as IProject)
                   .catch(this.handleError);

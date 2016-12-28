@@ -47,7 +47,7 @@ export class AnimalUpdateComponent implements OnInit {
           error => this.errorMessage = <any>error
         );
     this.mask = ['$',/[1-9]/, /\d/, /\d?/, /\d?/];
-    debugger;
+    // debugger;
     this._animalService.getAnimal(animalId).subscribe(a => this.animal = a);
   }
 

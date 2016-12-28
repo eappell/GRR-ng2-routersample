@@ -6,7 +6,7 @@
         {{project.Description}}
       </div>
       <masonry [options]="masonryOptions" [useImagesLoaded]="true">
-        <masonry-brick *ngFor="let animal of project.Offspring; let i = index" class="brick card card-inverse">
+        <masonry-brick *ngFor="let animal of project.Offspring" class="brick card card-inverse">
           <app-animal-card [animal]="animal"></app-animal-card>
         </masonry-brick>
       </masonry>
